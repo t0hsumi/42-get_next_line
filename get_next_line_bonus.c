@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:34 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/22 17:55:07 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 16:33:28 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	get_next_line(int fd, char **line)
 	char		*tmp;
 
 	flag = 2;
-	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= FD_MAX || !line || BUFFER_SIZE <= 0)
 		return (ERROR);
 	if (!memo[fd])
 		memo[fd] = ft_strdup("");
