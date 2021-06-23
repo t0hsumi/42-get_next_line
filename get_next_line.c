@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:34 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/23 15:28:55 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 19:23:10 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	get_next_line(int fd, char **line)
 	if (!memo)
 		memo = ft_strdup("");
 	if (!memo || !line || fd < 0 || BUFFER_SIZE <= 0)
-		return (ERROR);
+		return (my_free(memo, NULL, NULL, NULL));
 	while (flag == 2)
 	{
 		if (ft_new_line_pos(memo, '\n') != -1)
