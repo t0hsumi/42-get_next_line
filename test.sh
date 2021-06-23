@@ -1,5 +1,5 @@
 gcc -Wall -Wextra -Werror -fsanitize=address -g -D BUFFER_SIZE="$1" get_next_line.c get_next_line_utils.c main.c && \
-./a.out 1 && ./a.out 2 && ./a.out 3 && ./a.out 4 && ./a.out 5 && ./a.out 6 && \
+./a.out 1 && ./a.out 2 && ./a.out 3 && ./a.out 4 && ./a.out 5 && ./a.out 6 && ./a.out 7 \
 diff sample1.txt sample1_ans.txt > /dev/null 2> /dev/null;
 if [ $? = 0 ]; then
 	echo "test1:[OK]"
@@ -35,4 +35,10 @@ if [ $? = 0 ]; then
 	echo "test6:[OK]"
 else
 	echo "test6:[KO]"
+fi
+diff sample7.txt sample7_ans.txt > /dev/null 2> /dev/null;
+if [ $? = 0 ]; then
+	echo "test7:[OK]"
+else
+	echo "test7:[KO]"
 fi

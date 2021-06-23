@@ -5,10 +5,10 @@
 #include <sys/stat.h>
 
 int main(int argc, char **argv){
-	int fd1, fd2, fd3, fd4, fd5, fd6;
+	int fd1, fd2, fd3, fd4, fd5, fd6, fd7;
 	char *line;
-	FILE *output1, *output2, *output3, *output4, *output5, *output6;
-	int ret1, ret2, ret3, ret4, ret5, ret6;
+	FILE *output1, *output2, *output3, *output4, *output5, *output6, *output7;
+	int ret1, ret2, ret3, ret4, ret5, ret6, ret7;
 
 	if (argv[argc-1][0] == '1')
 	{
@@ -135,6 +135,27 @@ int main(int argc, char **argv){
 		} while (ret6);
 		close(fd6);
 		fclose(output6);
+	}
+	if (argv[argc-1][0] == '7')
+	{
+		fd7 = open("./sample7.txt", O_RDONLY);
+		output7 = fopen("sample7_ans.txt", "w");
+		if (!output7)
+		{
+			printf("cannot open\n");
+			exit(7);
+		}
+		do
+		{
+			ret7 = get_next_line(fd7, &line);
+			if (ret7)
+				fprintf(output7, "%s\n", line);
+			else if (!ret7)
+				fprintf(output7, "%s", line);
+			free(line);
+		} while (ret7);
+		close(fd7);
+		fclose(output7);
 	}
 	//system("leaks a.out");
 	return (0);
