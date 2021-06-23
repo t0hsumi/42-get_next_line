@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:22:06 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/22 22:15:32 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 10:52:50 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,5 @@ int main(void)
 	close(fd4);
 	close(fd5);
 	close(fd6);
-	system("leaks a.out");
 	return (0);
 }

@@ -136,6 +136,6 @@ int main(int argc, char **argv){
 		close(fd6);
 		fclose(output6);
 	}
-	system("leaks a.out");
+	//system("leaks a.out");
 	return (0);
 }
