@@ -18,6 +18,7 @@ int main(void){
 		else if (!ret)
 			printf("%s", line);
 		free(line);
+		line = NULL;
 	} while (ret);
 	close(fd);
 	return(0);
