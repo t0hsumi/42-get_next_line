@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:36 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/22 17:46:27 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 21:30:28 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,27 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-void	double_free(char *s1, char *s2)
+int	my_free(char **ptr1, char **ptr2, char **ptr3, char **ptr4)
 {
-	free(s1);
-	free(s2);
+	if (ptr1)
+	{
+		free(*ptr1);
+		*ptr1 = NULL;
+	}
+	if (ptr2)
+	{
+		free(*ptr2);
+		*ptr2 = NULL;
+	}
+	if (ptr3)
+	{
+		free(*ptr3);
+		*ptr3 = NULL;
+	}
+	if (ptr4)
+	{
+		free(*ptr4);
+		*ptr4 = NULL;
+	}
+	return (-1);
 }

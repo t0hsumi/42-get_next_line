@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:28 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/22 17:50:39 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 21:30:45 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int		ft_new_line_pos(const char *s, int chr);
 int		new_line(char **line, char **memo);
 int		no_new_line(char **line, char **memo, char *tmp, int n);
 int		get_next_line(int fd, char **line);
-void	double_free(char *s1, char *s2);
+int		my_free(char **ptr1, char **ptr2, char **ptr3, char **ptr4);
 
 #endif

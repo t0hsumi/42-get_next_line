@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:34 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/23 16:33:28 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 21:33:25 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,24 @@ int	new_line(char **line, char **memo)
 	int		i;
 	int		j;
 
-	if (!*memo)
-		return (ERROR);
 	i = ft_new_line_pos(*memo, '\n');
 	j = -1;
 	*line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!*line)
-		return (ERROR);
+		return (my_free(memo, NULL, NULL, NULL));
 	ft_memcpy(*line, *memo, i);
 	line[0][i] = '\0';
 	box = (char *)malloc(sizeof(char) * (ft_strlen(memo[0]) - i));
 	if (!box)
-		return (ERROR);
+		return (my_free(memo, line, NULL, NULL));
 	while (memo[0][i + 1 + ++j])
 		box[j] = memo[0][i + 1 + j];
 	box[j] = '\0';
-	free(*memo);
+	my_free(memo, NULL, NULL, NULL);
 	*memo = ft_strdup(box);
-	free(box);
+	my_free(&box, NULL, NULL, NULL);
 	if (!*memo)
-		return (ERROR);
+		return (my_free(line, NULL, NULL, NULL));
 	return (NEW_LINE);
 }
 
@@ -72,7 +70,7 @@ int	new_line_in_tmp(char **line, char **memo, char *tmp, int pos)
 	*line = (char *)malloc(sizeof(char) * (ft_strlen(*memo) + pos + 1));
 	box = (char *)malloc(sizeof(char) * (ft_strlen(tmp) - pos));
 	if (!*line || !box)
-		return (ERROR);
+		return (my_free(line, memo, &tmp, &box));
 	while (memo[0][++i])
 		line[0][i] = memo[0][i];
 	while (tmp[++j] != '\n')
@@ -82,9 +80,11 @@ int	new_line_in_tmp(char **line, char **memo, char *tmp, int pos)
 	while (tmp[pos + 1 + ++i])
 		box[i] = tmp[pos + 1 + i];
 	box[i] = '\0';
-	free(*memo);
+	my_free(memo, NULL, NULL, NULL);
 	*memo = ft_strdup(box);
-	double_free(box, tmp);
+	if (!*memo)
+		return (my_free(&box, &tmp, NULL, NULL));
+	my_free(&box, &tmp, NULL, NULL);
 	return (NEW_LINE);
 }
 
@@ -98,18 +98,18 @@ int	no_new_line(char **line, char **memo, char *tmp, int n)
 		return (new_line_in_tmp(line, memo, tmp, pos));
 	box = ft_strdup(*memo);
 	if (!box)
-		return (ERROR);
-	free(*memo);
+		return (my_free(memo, &tmp, NULL, NULL));
+	my_free(memo, NULL, NULL, NULL);
 	*memo = ft_strjoin(box, tmp);
-	double_free(box, tmp);
+	my_free(&box, &tmp, NULL, NULL);
 	if (!*memo)
 		return (ERROR);
 	if (n < BUFFER_SIZE)
 	{
 		*line = ft_strdup(*memo);
 		if (!line)
-			return (ERROR);
-		free(*memo);
+			return (my_free(memo, NULL, NULL, NULL));
+		my_free(memo, NULL, NULL, NULL);
 		return (END_OF_FILE);
 	}
 	return (NOT_UNTIL);
@@ -127,6 +127,8 @@ int	get_next_line(int fd, char **line)
 		return (ERROR);
 	if (!memo[fd])
 		memo[fd] = ft_strdup("");
+	if (!memo[fd])
+		return (my_free(&memo[fd], NULL, NULL, NULL));
 	while (flag == 2)
 	{
 		if (ft_new_line_pos(memo[fd], '\n') != -1)
@@ -134,10 +136,7 @@ int	get_next_line(int fd, char **line)
 		tmp = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		n = read(fd, tmp, BUFFER_SIZE);
 		if (n == -1)
-		{
-			double_free(tmp, memo[fd]);
-			return (ERROR);
-		}
+			return (my_free(&tmp, &memo[fd], NULL, NULL));
 		tmp[n] = 0;
 		flag = no_new_line(line, &memo[fd], tmp, n);
 	}
