@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:34 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/23 19:23:10 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/06/23 19:28:04 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	new_line_in_tmp(char **line, char **memo, char *tmp, int pos)
 	box[i] = '\0';
 	my_free(*memo, NULL, NULL, NULL);
 	*memo = ft_strdup(box);
+	if (!*memo)
+		return (my_free(box, tmp, NULL, NULL));
 	my_free(box, tmp, NULL, NULL);
 	return (NEW_LINE);
 }
