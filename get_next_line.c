@@ -6,31 +6,11 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:34 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/23 21:23:35 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/10/06 14:56:00 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-int	ft_new_line_pos(const char *s, int chr)
-{
-	char	c;
-	int		i;
-
-	c = (char)chr;
-	i = 0;
-	if (!s)
-		return (-1);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	if (c == '\0')
-		return (i);
-	return (-1);
-}
 
 int	new_line(char **line, char **memo)
 {
@@ -40,10 +20,9 @@ int	new_line(char **line, char **memo)
 
 	i = ft_new_line_pos(*memo, '\n');
 	j = -1;
-	*line = (char *)malloc(sizeof(char) * (i + 1));
+	*line = ft_strndup(*memo, i);
 	if (!*line)
 		return (my_free(memo, NULL, NULL, NULL));
-	ft_memcpy(*line, *memo, i);
 	line[0][i] = '\0';
 	box = (char *)malloc(sizeof(char) * (ft_strlen(memo[0]) - i));
 	if (!box)
@@ -52,7 +31,7 @@ int	new_line(char **line, char **memo)
 		box[j] = memo[0][i + 1 + j];
 	box[j] = '\0';
 	my_free(memo, NULL, NULL, NULL);
-	*memo = ft_strdup(box);
+	*memo = ft_strndup(box, ft_strlen(box) + 1);
 	my_free(&box, NULL, NULL, NULL);
 	if (!*memo)
 		return (my_free(line, NULL, NULL, NULL));
@@ -81,7 +60,7 @@ int	new_line_in_tmp(char **line, char **memo, char *tmp, int pos)
 		box[i] = tmp[pos + 1 + i];
 	box[i] = '\0';
 	my_free(memo, NULL, NULL, NULL);
-	*memo = ft_strdup(box);
+	*memo = ft_strndup(box, ft_strlen(box) + 1);
 	if (!*memo)
 		return (my_free(&box, &tmp, NULL, NULL));
 	my_free(&box, &tmp, NULL, NULL);
@@ -96,7 +75,7 @@ int	no_new_line(char **line, char **memo, char *tmp, int n)
 	pos = ft_new_line_pos(tmp, '\n');
 	if (pos >= 0)
 		return (new_line_in_tmp(line, memo, tmp, pos));
-	box = ft_strdup(*memo);
+	box = ft_strndup(*memo, ft_strlen(*memo) + 1);
 	if (!box)
 		return (my_free(memo, &tmp, NULL, NULL));
 	my_free(memo, NULL, NULL, NULL);
@@ -106,7 +85,7 @@ int	no_new_line(char **line, char **memo, char *tmp, int n)
 		return (ERROR);
 	if (n < BUFFER_SIZE)
 	{
-		*line = ft_strdup(*memo);
+		*line = ft_strndup(*memo, ft_strlen(*memo) + 1);
 		if (!line)
 			return (my_free(memo, NULL, NULL, NULL));
 		my_free(memo, NULL, NULL, NULL);
@@ -115,7 +94,7 @@ int	no_new_line(char **line, char **memo, char *tmp, int n)
 	return (NOT_UNTIL);
 }
 
-int	get_next_line(int fd, char **line)
+int	get_next_line_prev(int fd, char **line)
 {
 	ssize_t		n;
 	int			flag;
@@ -124,7 +103,7 @@ int	get_next_line(int fd, char **line)
 
 	flag = 2;
 	if (!memo)
-		memo = ft_strdup("");
+		memo = ft_strndup("", ft_strlen("") + 1);
 	if (!memo || !line || fd < 0 || BUFFER_SIZE <= 0)
 		return (my_free(&memo, NULL, NULL, NULL));
 	while (flag == 2)
@@ -139,4 +118,32 @@ int	get_next_line(int fd, char **line)
 		flag = no_new_line(line, &memo, tmp, n);
 	}
 	return (flag);
+}
+
+char	*get_next_line(int fd)
+{
+	char	*tmp;
+	char	*line;
+	int		ret;
+
+	line = NULL;
+	ret = get_next_line_prev(fd, &tmp);
+	if (ret > 0)
+	{
+		line = ft_strjoin(tmp, "\n");
+		free(tmp);
+		return (line);
+	}
+	else if (ret == 0)
+	{
+		if (tmp[0] == '\0')
+		{
+			free(tmp);
+			tmp = NULL;
+			return (NULL);
+		}
+		return (tmp);
+	}
+	else
+		return (NULL);
 }

@@ -6,11 +6,31 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:36 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/06/23 21:27:34 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/10/06 14:56:00 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	ft_new_line_pos(const char *s, int chr)
+{
+	char	c;
+	int		i;
+
+	c = (char)chr;
+	i = 0;
+	if (!s)
+		return (-1);
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (i);
+		i++;
+	}
+	if (c == '\0')
+		return (i);
+	return (-1);
+}
 
 size_t	ft_strlen(const char *s)
 {
@@ -22,33 +42,22 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	unsigned char	*usdst;
-	unsigned char	*ussrc;
-
-	usdst = (unsigned char *)dst;
-	ussrc = (unsigned char *)src;
-	if (dst == src)
-		return (dst);
-	while (n)
-	{
-		*usdst = *ussrc;
-		usdst++;
-		ussrc++;
-		n--;
-	}
-	return (dst);
-}
-
-char	*ft_strdup(const char *s1)
+char	*ft_strndup(const char *s1, size_t n)
 {
 	char	*ptr;
+	int		i;
 
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	ptr = (char *)malloc(sizeof(char) * n);
 	if (!ptr)
 		return (NULL);
-	ft_memcpy(ptr, s1, ft_strlen(s1) + 1);
+	if (ptr == s1)
+		return (ptr);
+	i = 0;
+	while (i < (int)n)
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
 	return (ptr);
 }
 
