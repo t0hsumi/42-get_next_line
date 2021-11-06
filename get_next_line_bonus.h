@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:28 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/10/06 14:59:48 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/11/06 15:05:14 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 256
 # endif
 
-# define FD_MAX 256
+# define FD_MAX 20
 
 # include <stdlib.h>
 # include <unistd.h>
