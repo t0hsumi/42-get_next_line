@@ -3,18 +3,20 @@
 #include <sys/fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int main(void) {
-	int fd1;
+	int fd;
     char *line;
 
-	fd1 = open("./test2.txt", O_RDONLY);
-	line = get_next_line(fd1);
-    do {
+	open("./test2.txt", O_RDONLY);
+	open("./test1.txt", O_RDONLY);
+    while (1){
+		printf("fd : ");
+		scanf("%d", &fd);
+		line = get_next_line(fd);
 		printf("%s", line);
 		free(line);
 		line = NULL;
-		line = get_next_line(fd1);
-	}while (line);
+	}
 }
