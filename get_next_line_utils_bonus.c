@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:36 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/10/06 14:56:00 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/11/19 12:03:45 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strndup(const char *s1, size_t n)
 	char	*ptr;
 	int		i;
 
-	ptr = (char *)malloc(sizeof(char) * n);
+	ptr = (char *)malloc(sizeof(char) * (n + 1));
 	if (!ptr)
 		return (NULL);
 	if (ptr == s1)
@@ -58,6 +58,7 @@ char	*ft_strndup(const char *s1, size_t n)
 		ptr[i] = s1[i];
 		i++;
 	}
+	ptr[i] = '\0';
 	return (ptr);
 }
 

@@ -2,11 +2,20 @@
 1234
 56783
 7890
-------
+
 0 : 
 1 :  write(1, )
 2 : write(2, ..)
 3 4 5 6
 char **memo;
+---------------
 
-memo[i][j]
+
+BUFFER_SIZE = 3
+tmp = "012\0"
+memo <= static
+line <- 返すやつ
+
+tmp に読んだのを入れる
+memo || tmp \n -> line に入れて返す。　残ったのはmemo
+memp && tmp not \n -> もう一回read

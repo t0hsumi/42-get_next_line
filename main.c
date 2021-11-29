@@ -17,4 +17,5 @@ int main(void) {
 		line = NULL;
 		line = get_next_line(fd1);
 	}while (line);
+	close(fd1);
 }

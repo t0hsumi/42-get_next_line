@@ -6,7 +6,7 @@
 /*   By: tohsumi <tohsumi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:46:28 by tohsumi           #+#    #+#             */
-/*   Updated: 2021/10/06 14:56:01 by tohsumi          ###   ########.fr       */
+/*   Updated: 2021/11/15 11:22:47 by tohsumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
+# include <sys/types.h>
 
 enum
 {
@@ -33,7 +35,7 @@ char	*ft_strndup(const char *s1, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_new_line_pos(const char *s, int chr);
 int		new_line(char **line, char **memo);
-int		no_new_line(char **line, char **memo, char *tmp, int n);
+int		no_new_line(char **line, char **memo, char *tmp, ssize_t n);
 int		get_next_line_prev(int fd, char **line);
 int		my_free(char **ptr1, char **ptr2, char **ptr3, char **ptr4);
 char	*get_next_line(int fd);
